@@ -5,9 +5,11 @@ import logger from './logger.js';
 const debug = logger('quill:events');
 const EVENTS = ['selectionchange', 'mousedown', 'mouseup', 'click'];
 
+// 给全局document 都添加事件监听
 EVENTS.forEach((eventName) => {
   document.addEventListener(eventName, (...args) => {
     Array.from(document.querySelectorAll('.ql-container')).forEach((node) => {
+      // 获取quill实例
       const quill = instances.get(node);
       if (quill && quill.emitter) {
         quill.emitter.handleDOM(...args);
